@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".YoramMypage">
+    tools:context=".YoramMypage"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/yoram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="79dp"
+        android:text="@string/mypage_title"
+        android:textAppearance="@style/yoram"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="-6sp"
+        android:layout_gravity="center"
+        />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12일"
+            android:layout_marginRight="5dp"
+            android:textSize="35dp"
+            android:textAppearance="@style/explain_text"
+            android:textColor="#FF46C5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="연속으로 요가를 수행 했어요!"
+            android:textSize="20dp"
+            android:textAppearance="@style/explain_text"/>
+    </LinearLayout>
+
+    <CalendarView
+
+        android:layout_marginTop="70dp"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/white"
+        app:labelVisiviltyMode="labeled"
+        app:menu="@menu/bottom_menu"
+        android:layout_marginTop="30dp"
+
+        />
+
+</LinearLayout>
