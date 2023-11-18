@@ -44,18 +44,28 @@
         android:textAppearance="@style/explain_text" />
 
     <android.widget.Button
+<<<<<<< HEAD
         android:layout_width="290dp"
+=======
+        android:id="@+id/neck"
+        android:layout_width="280dp"
+>>>>>>> 87f6fd64b54d63ea28e99c21a46411824af84240
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
-        android:text="@string/choice_button_string1"
         android:background="@drawable/rounded_button"
+<<<<<<< HEAD
         android:textColor="@color/white"
         android:textAppearance="@style/explain_text"
         android:textSize="15sp"
+=======
+        android:text="@string/choice_button_string1"
 
-        />
+        android:textColor="@color/white" />
+>>>>>>> 87f6fd64b54d63ea28e99c21a46411824af84240
+
     <android.widget.Button
+<<<<<<< HEAD
         android:layout_marginTop="10dp"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
@@ -78,13 +88,43 @@
     <android.widget.Button
         android:layout_marginTop="10dp"
         android:layout_width="290dp"
+=======
+        android:id="@+id/waist"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_black_buttom"
+        android:text="@string/choice_button_string2"
+        android:textColor="@color/white" />
+
+    <android.widget.Button
+        android:id="@+id/hip_joint"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_black_buttom"
+        android:text="@string/choice_button_string3"
+        android:textColor="@color/white" />
+
+    <android.widget.Button
+        android:id="@+id/leg"
+        android:layout_width="280dp"
+>>>>>>> 87f6fd64b54d63ea28e99c21a46411824af84240
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_black_buttom"
+<<<<<<< HEAD
         android:text = "@string/choice_button_string4"
         android:textColor="@color/white"
         android:textAppearance="@style/explain_text"
         android:textSize="15sp"/>
+=======
+        android:text="@string/choice_button_string4"
+        android:textColor="@color/white" />
+>>>>>>> 87f6fd64b54d63ea28e99c21a46411824af84240
 
 
 
