@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Yoram"
         tools:targetApi="31">
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroduceOnboard"
             android:exported="false" />
         <activity
@@ -47,7 +50,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
