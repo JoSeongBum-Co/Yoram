@@ -51,7 +51,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="12sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Tue"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -62,7 +62,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="14sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Wed"
             android:layout_margin="5dp"
             android:layout_width="45dp"
@@ -73,7 +73,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="14sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Thu"
             android:layout_margin="5dp"
             android:layout_width="45dp"
@@ -84,7 +84,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="14sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Fri"
             android:layout_margin="5dp"
             android:layout_width="45dp"
@@ -96,7 +96,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="14sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Sat"
             android:layout_margin="5dp"
             android:layout_width="45dp"
@@ -107,7 +107,7 @@
             android:textAppearance="@style/button_text"
             android:textSize="14sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/Sun"
             android:layout_margin="5dp"
             android:layout_width="45dp"
@@ -142,7 +142,7 @@
         android:layout_height="58dp"
         android:layout_gravity="center"
         android:text="다음으로"
-        android:background="@drawable/rounded_black_buttom"
+        android:background="@drawable/rounded_button"
         android:textAppearance="@style/button_text"
         android:textSize="14sp"/>
 
