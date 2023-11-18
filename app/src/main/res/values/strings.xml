@@ -1,11 +1,21 @@
 <resources>
+    <!-- 요람 타이틀 -->
     <string name="app_name">Yoram</string>
     <string name="title">YORAM</string>
 
+    <!-- introduce Strings -->
+    <string name="introduce_String1">알람과 요가를 한번에!</string>
+    <string name="introduce_String2">요람에 오신걸 환영합니다.</string>
+    <string name="introduce_String3">카메라를 통해 자세를 인식하해요.</string>
 
+    <!-- introduce Button -->
+    <string name="Button_title">시작하기</string>
 
-
-    <!-- -->
+    <!-- choice strings -->
+    <string name="choice_String1">몸 어디부분이 불편하신가요?</string>
+    <string name="choice_String2">알맞은 요가 동작을 정해드려요.</string>
+    <!-- choice_button_string-->
+    <string name="choice_button_string"></string>
     <!-- --><!-- --><!-- -->
 
 
