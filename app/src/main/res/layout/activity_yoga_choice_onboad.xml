@@ -29,6 +29,7 @@
         android:text="@string/choice_String1"
         android:textAppearance="@style/explain_text"
         android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
         />
     <TextView
 
@@ -36,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:text="@string/choice_String2"
         android:textAppearance="@style/explain_text"
         android:layout_gravity="right"
@@ -43,7 +45,7 @@
 
     <android.widget.Button
         android:id="@+id/neck"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="70dp"
@@ -54,34 +56,40 @@
 
     <android.widget.Button
         android:id="@+id/waist"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_black_buttom"
+        android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string2"
         android:textColor="@color/white" />
 
     <android.widget.Button
         android:id="@+id/hip_joint"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_black_buttom"
+        android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string3"
         android:textColor="@color/white" />
 
     <android.widget.Button
         android:id="@+id/leg"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_black_buttom"
+        android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string4"
         android:textColor="@color/white" />
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/progress2"
+        android:layout_gravity="center"/>
 
 
 
