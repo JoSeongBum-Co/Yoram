@@ -8,6 +8,7 @@
     <string name="introduce_String2">요람에 오신걸 환영합니다.</string>
     <string name="introduce_String3">카메라를 통해 자세를 인식하해요.</string>
 
+<<<<<<< HEAD
     <!-- introduce Button -->
     <string name="Button_title">시작하기</string>
 
@@ -19,15 +20,16 @@
     <string name="choice_button_string2">허리 Waist:       서 있을때 허리가 불편해요.</string>
     <string name="choice_button_string3">고관절 hip joint:        앉아 있을 때 불편해요.</string>
     <string name="choice_button_string4">다리 leg:          다리에 혈액순환이 안되는 것 같아요.</string>
+=======
+    <!-- -->
+>>>>>>> 2a0b8adcfd6bbfcb8ec3d223132c1f1d078df894
     <!-- --><!-- --><!-- -->
 
 
     <!-- -->
 
-    <!-- -->
-
-
-
+    <!-- main home page strings -->
+    <string name="main_home_text1">알람을 맞출 요일과 시간을 정해주세요.</string>
 
     <!-- 알람이 울릴때 사용하는 문자열들 -->
     <string name="alram_call_text1">일어나실 시간입니다.</string>
