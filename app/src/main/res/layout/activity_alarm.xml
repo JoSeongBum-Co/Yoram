@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AlarmActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Auto layout, variables, and unit scale are not yet supported -->
+    <TextView
+        android:id="@+id/yoram"
+        android:layout_width="149dp"
+        android:layout_height="74dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:text="@string/title"
+        android:textAppearance="@style/yoram"
+        android:lineSpacingExtra="-6sp"
+        android:gravity="center_horizontal|top"
+        android:lineHeight="50sp"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/alramtext2"
+        android:textAppearance="@style/explain_text"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        />
+    <Button
+        android:id="@+id/start_yoga"
+        android:textAppearance="@style/button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="요가 시작"
+        />
+</LinearLayout>

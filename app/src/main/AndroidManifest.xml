@@ -18,6 +18,24 @@
         android:theme="@style/Theme.Yoram"
         tools:targetApi="31">
         <activity
+            android:name=".IntroduceOnboard"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardSettingCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogaSetOnboadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogaChoiceOnboadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogaActivity"
+            android:exported="false" />
+        <activity
             android:name=".YoramMypage"
             android:exported="false" />
         <activity
