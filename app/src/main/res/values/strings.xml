@@ -15,7 +15,10 @@
     <string name="choice_String1">몸 어디부분이 불편하신가요?</string>
     <string name="choice_String2">알맞은 요가 동작을 정해드려요.</string>
     <!-- choice_button_string-->
-    <string name="choice_button_string"></string>
+    <string name="choice_button_string1">목 Neck: 목이 뻐근하고 불편해요.</string>
+    <string name="choice_button_string2">허리 Waist:       서 있을때 허리가 불편해요.</string>
+    <string name="choice_button_string3">고관절 hip joint:        앉아 있을 때 불편해요.</string>
+    <string name="choice_button_string4">다리 leg:          다리에 혈액순환이 안되는 것 같아요.</string>
     <!-- --><!-- --><!-- -->
 
 

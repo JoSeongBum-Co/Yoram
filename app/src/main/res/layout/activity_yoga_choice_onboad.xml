@@ -8,17 +8,16 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/yoram2"
+        android:id="@+id/yoram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="79dp"
         android:text="@string/title"
         android:textAppearance="@style/yoram"
+        android:textColor="@color/black"
         android:lineSpacingExtra="-6sp"
         android:layout_gravity="center"
-        android:textColor="@color/black"
-        tools:ignore="MissingConstraints"
         />
 
     <TextView
@@ -41,10 +40,42 @@
         android:textAppearance="@style/explain_text"
         android:layout_gravity="right"
         />
-    <Button
-        android:layout_width="wrap_content"
+
+    <android.widget.Button
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:text = ""/>
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:text="@string/choice_button_string1"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+
+        />
+    <android.widget.Button
+        android:layout_marginTop="10dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_black_buttom"
+        android:text = "@string/choice_button_string2"
+        android:textColor="@color/white"/>
+    <android.widget.Button
+        android:layout_marginTop="10dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_black_buttom"
+        android:text = "@string/choice_button_string3"
+        android:textColor="@color/white"/>
+    <android.widget.Button
+        android:layout_marginTop="10dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_black_buttom"
+        android:text = "@string/choice_button_string4"
+        android:textColor="@color/white"/>
+
 
 
 

@@ -60,6 +60,8 @@
         android:layout_marginTop="150dp"
         android:text="@string/Button_title"
         android:textAppearance="@style/button_text"
+        android:background="@drawable/rounded_black_buttom"
+        android:paddingRight=""
 
         />
     <!--
