@@ -20,6 +20,13 @@
     <string name="choice_button_string2">허리 Waist:       서 있을때 허리가 불편해요.</string>
     <string name="choice_button_string3">고관절 hip joint:        앉아 있을 때 불편해요.</string>
     <string name="choice_button_string4">다리 leg:          다리에 혈액순환이 안되는 것 같아요.</string>
+<<<<<<< HEAD
+    <!-- Mypage title-->
+    <string name="mypage_title">Mypage</string>
+
+    =======
+=======
+>>>>>>> 87f6fd64b54d63ea28e99c21a46411824af84240
     <!-- -->
 
     <!-- --><!-- --><!-- -->

@@ -60,7 +60,14 @@
         android:layout_marginTop="150dp"
         android:text="@string/Button_title"
         android:textAppearance="@style/button_text"
+<<<<<<< HEAD
         android:background="@drawable/rounded_button"
+=======
+        android:background="@drawable/rounded_black_buttom"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+
+>>>>>>> b7963967ee76ea64313d6cf12fa4b5413fa72c08
         />
 
     <ImageView
