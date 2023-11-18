@@ -9,12 +9,18 @@
     <string name="introduce_String3">카메라를 통해 자세를 인식하해요.</string>
 
 
+    <!-- Complete Setting -->
+    <string name="setting_complete1">모든 설정이 완료되었습니다.</string>
+    <string name="setting_complete2">아침 요가를 통해 상쾌한 아침을 보내세요.</string>
+
+
     <!-- introduce Button -->
     <string name="Button_title">시작하기</string>
 
     <!-- choice strings -->
     <string name="choice_String1">몸 어디부분이 불편하신가요?</string>
     <string name="choice_String2">알맞은 요가 동작을 정해드려요.</string>
+
     <!-- choice_button_string-->
     <string name="choice_button_string1">목 Neck: 목이 뻐근하고 불편해요.</string>
     <string name="choice_button_string2">허리 Waist:       서 있을때 허리가 불편해요.</string>
@@ -35,4 +41,6 @@
     <!-- 알람이 울릴때 사용하는 문자열들 -->
     <string name="alram_call_text1">일어나실 시간입니다.</string>
     <string name="alram_call_text2">스트레칭을 통해 상쾌한 아침을 맞이하세요.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

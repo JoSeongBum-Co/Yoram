@@ -20,6 +20,6 @@
         android:lineSpacingExtra="-6sp"
         android:text="@string/title"
         android:textAppearance="@style/yoram"
-        android:textSize="100dp" />
+        android:textSize="70dp" />
 
 </LinearLayout>
