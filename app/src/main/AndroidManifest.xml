@@ -30,9 +30,6 @@
             android:name=".YogaChoiceOnboadActivity"
             android:exported="false" />
         <activity
-            android:name=".OnboardActivity"
-            android:exported="false" />
-        <activity
             android:name=".YogaActivity"
             android:exported="false" />
         <activity
