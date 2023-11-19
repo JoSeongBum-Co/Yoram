@@ -30,111 +30,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="알람을 설정하실 요일을 정해주세요."
+        android:text="요일을 선택하여 제각각의"
         android:textAppearance="@style/explain_text" />
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
-        <android.widget.Button
-            android:id="@+id/OnboardMon"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            style="@style/DayButtonStyle"
-            android:text="월"
-            android:textAppearance="@style/button_text"
-            android:textSize="12sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardTue"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/day_button"
-            android:padding="0dp"
-            android:text="화"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardWed"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            android:background="@drawable/day_button"
-            android:text="수"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardThu"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            android:background="@drawable/day_button"
-            android:text="목"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardFri"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            android:background="@drawable/day_button"
-            android:text="금"
-            android:textAlignment="center"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardSat"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            android:background="@drawable/day_button"
-            android:text="토"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-
-        <android.widget.Button
-            android:id="@+id/OnboardSun"
-            android:layout_margin="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="0dp"
-            android:background="@drawable/day_button"
-            android:text="일"
-            android:textAlignment="center"
-            android:textAppearance="@style/button_text"
-            android:textSize="14sp" />
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/alramtext3"
+        android:id="@+id/alramtext2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:text="알람 시간을 맞춰주세요."
+        android:layout_marginTop="20dp"
+        android:text="알람 시간을 설정할 수 있어요."
         android:textAppearance="@style/explain_text" />
 
-    <TimePicker
-        android:id="@+id/onboardTimePicker"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        android:timePickerMode="spinner" />
 
     <android.widget.Button
         android:id="@+id/next_button"
@@ -142,15 +48,16 @@
         android:layout_height="58dp"
         android:layout_gravity="center"
         android:text="다음으로"
+        android:layout_marginTop="200dp"
         android:background="@drawable/rounded_button"
         android:textAppearance="@style/button_text"
-        android:textSize="14sp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="35dp"
         android:layout_height="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/progress3"
         android:layout_gravity="center"/>
 </LinearLayout>

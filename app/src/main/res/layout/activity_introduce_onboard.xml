@@ -4,51 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroduceOnboard"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".IntroduceOnboard">
+
     <TextView
         android:id="@+id/yoram2"
         android:layout_width="149dp"
         android:layout_height="74dp"
+        android:layout_gravity="center"
         android:layout_marginTop="79dp"
+        android:lineSpacingExtra="-6sp"
         android:text="@string/title"
         android:textAppearance="@style/yoram"
-        android:lineSpacingExtra="-6sp"
-        android:layout_gravity="center"
         android:textColor="@color/black"
-        tools:ignore="MissingConstraints"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
 
         android:id="@+id/introduce_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="130dp"
         android:text="@string/introduce_String1"
-        android:textAppearance="@style/explain_text"
-        android:layout_gravity="center"
-        />
+        android:textAppearance="@style/explain_text" />
+
     <TextView
 
         android:id="@+id/introduce_text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:text="@string/introduce_String2"
-        android:textAppearance="@style/explain_text"
-        android:layout_gravity="center"
-        />
+        android:textAppearance="@style/explain_text" />
+
     <TextView
 
         android:id="@+id/introduce_text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:text="@string/introduce_String3"
-        android:textAppearance="@style/explain_text"
-        android:layout_gravity="center"
-        />
+        android:textAppearance="@style/explain_text" />
 
     <android.widget.Button
         android:id="@+id/start_button"
@@ -57,17 +56,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginTop="150dp"
-        android:text="@string/Button_title"
-        android:textAppearance="@style/button_text"
         android:background="@drawable/rounded_button"
-        />
+        android:text="@string/Button_title"
+        android:textAppearance="@style/button_text" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="35dp"
         android:layout_height="20dp"
+        android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:src="@drawable/progress1"
-        android:layout_gravity="center"/>
+        android:src="@drawable/progress1" />
 
 </LinearLayout>

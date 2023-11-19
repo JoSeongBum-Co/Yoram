@@ -1,7 +1,9 @@
 package com.example.yoram;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import java.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,6 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,5 +75,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    // 데이터를 SharedPreferences에 저장하는 메서드
+    private void saveDataInSharedPreferences(Map<String, Calendar> data) {
+        SharedPreferences prefs = getSharedPreferences("YoramHomePrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+        editor.putString("dayTimeMap", json);
+        editor.apply();
+    }
+
+    // SharedPreferences에서 데이터를 불러오는 메서드
+    public Map<String, Calendar> loadDataFromSharedPreferences() {
+        SharedPreferences prefs = getSharedPreferences("YoramHomePrefs", Context.MODE_PRIVATE);
+        String json = prefs.getString("dayTimeMap", null);
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<HashMap<String, Calendar>>(){}.getType();
+            return gson.fromJson(json, type);
+        }
+        return new HashMap<>();
     }
 }

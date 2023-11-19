@@ -45,49 +45,18 @@
         android:textAppearance="@style/explain_text" />
 
     <android.widget.Button
-        android:id="@+id/neck"
-        android:layout_width="300dp"
+        android:id="@+id/next_button2"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+
         android:layout_gravity="center"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="180dp"
         android:background="@drawable/rounded_button"
-        android:text="@string/choice_button_string1"
+        android:text="다음으로"
         android:fontFamily="@font/jejumyeongjo"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
-    <android.widget.Button
-        android:id="@+id/waist"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/choice_button_string2"
-        android:fontFamily="@font/jejumyeongjo"
-        android:textColor="@color/white" />
-
-    <android.widget.Button
-        android:id="@+id/hip_joint"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/choice_button_string3"
-        android:fontFamily="@font/jejumyeongjo"
-        android:textColor="@color/white" />
-
-    <android.widget.Button
-        android:id="@+id/leg"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/choice_button_string4"
-        android:fontFamily="@font/jejumyeongjo"
-        android:textColor="@color/white" />
 
     <ImageView
         android:id="@+id/imageView"
