@@ -52,7 +52,7 @@
         android:layout_marginTop="70dp"
         android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string1"
-        android:textAppearance="@style/explain_text"
+        android:fontFamily="@font/jejumyeongjo"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
@@ -64,6 +64,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string2"
+        android:fontFamily="@font/jejumyeongjo"
         android:textColor="@color/white" />
 
     <android.widget.Button
@@ -74,6 +75,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string3"
+        android:fontFamily="@font/jejumyeongjo"
         android:textColor="@color/white" />
 
     <android.widget.Button
@@ -84,6 +86,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_button"
         android:text="@string/choice_button_string4"
+        android:fontFamily="@font/jejumyeongjo"
         android:textColor="@color/white" />
 
     <ImageView

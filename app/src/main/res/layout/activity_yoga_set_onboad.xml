@@ -41,7 +41,7 @@
         android:layout_gravity="center">
 
         <android.widget.Button
-            android:id="@+id/Mon"
+            android:id="@+id/OnboardMon"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -52,7 +52,7 @@
             android:textSize="12sp" />
 
         <android.widget.Button
-            android:id="@+id/Tue"
+            android:id="@+id/OnboardTue"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_margin="5dp"
@@ -63,7 +63,7 @@
             android:textSize="14sp" />
 
         <android.widget.Button
-            android:id="@+id/Wed"
+            android:id="@+id/OnboardWed"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -74,7 +74,7 @@
             android:textSize="14sp" />
 
         <android.widget.Button
-            android:id="@+id/Thu"
+            android:id="@+id/OnboardThu"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -85,7 +85,7 @@
             android:textSize="14sp" />
 
         <android.widget.Button
-            android:id="@+id/Fri"
+            android:id="@+id/OnboardFri"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -97,7 +97,7 @@
             android:textSize="14sp" />
 
         <android.widget.Button
-            android:id="@+id/Sat"
+            android:id="@+id/OnboardSat"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -108,7 +108,7 @@
             android:textSize="14sp" />
 
         <android.widget.Button
-            android:id="@+id/Sun"
+            android:id="@+id/OnboardSun"
             android:layout_margin="5dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -130,7 +130,7 @@
         android:textAppearance="@style/explain_text" />
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/onboardTimePicker"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
