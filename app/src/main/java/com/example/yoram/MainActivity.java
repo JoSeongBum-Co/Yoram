@@ -1,5 +1,6 @@
 package com.example.yoram;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigationbar);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, homeFragment).commitAllowingStateLoss();
         bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //화면 이동
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,13 +80,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
     // 데이터를 SharedPreferences에 저장하는 메서드
-    private void saveDataInSharedPreferences(Map<String, Calendar> data) {
-        SharedPreferences prefs = getSharedPreferences("YoramHomePrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(data);
-        editor.putString("dayTimeMap", json);
-        editor.apply();
+    private void saveDataInSharedPreferences(String key, Object value) {
+        SharedPreferences pref;
+        SharedPreferences.Editor editor;
+        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
+
+
     }
 
     // SharedPreferences에서 데이터를 불러오는 메서드
