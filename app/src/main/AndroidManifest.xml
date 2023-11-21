@@ -45,7 +45,7 @@
             android:name=".YoramHome"
             android:exported="false" />
         <activity
-            android:name=".AlarmActivity"
+            android:name=".AlarmStartActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

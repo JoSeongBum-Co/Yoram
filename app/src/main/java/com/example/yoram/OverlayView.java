@@ -96,11 +96,13 @@ public class OverlayView extends View {
         if (overlayText != null) {
             if (textPaint == null) {
                 textPaint = new Paint();
-                textPaint.setColor(Color.WHITE);
+                textPaint.setColor(Color.BLACK);
                 textPaint.setTextSize(50); // 텍스트 크기 설정
             }
 
-            canvas.drawText(overlayText, 50, 100, textPaint); // 텍스트 위치 설정
+            canvas.drawText(overlayText, 60, 50, textPaint); // 텍스트 위치 설정
+            canvas.drawText("카메라에 보이시는 동작을 따라하세요.", 30, 110, textPaint);
+            canvas.drawText("정확한 동작을 하셔야 카운트가 줄어듭니다.", 30, 170, textPaint);
         }
     }
 }
