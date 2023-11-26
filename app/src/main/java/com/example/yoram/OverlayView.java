@@ -19,6 +19,8 @@ public class OverlayView extends View {
     private String overlayText;
     private Paint textPaint;
     private Handler handler;
+    public static int count = 30;
+    String pose_name = "left";
 
     public OverlayView(Context context) {
         super(context);
@@ -39,6 +41,7 @@ public class OverlayView extends View {
         // 기본 이미지 리소스 ID와 텍스트를 초기화
         setOverlayImage(R.drawable.overlay_image);
         updateTextPeriodically();
+        invalidate();
     }
 
     // 이미지 리소스 ID를 설정하는 메서드
@@ -52,30 +55,19 @@ public class OverlayView extends View {
     }
 
     // 텍스트를 주기적으로 업데이트하는 메서드
-    private void updateTextPeriodically() {
-        final int[] count = {30};
-        handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
+    // 클래스 멤버 변수로 Handler 선언
 
-
-            @Override
-            public void run() {
-                // 1초마다 텍스트를 변경
-                setOverlayText("남은 시간 : " + count[0]);
-                // 다음 업데이트를 예약
-                // 여기서 행동을 인식하는 함수를 달음.
-                boolean right_pose = true;
-                if(right_pose){
-                    count[0]--;
-                }
-                if(count[0] == 0){
-                    setOverlayText("다음 동작으로 넘어갑니다.");
-                }
-
-                handler.postDelayed(this, 1000);
-            }
-        }, 1000); // 초기에 1초 후에 시작
+    public void updateTextPeriodically() {
+        if (count > 0) {
+            setOverlayText("남은 시간 : " + --count);
+        } else {
+            setOverlayText("다음 동작으로 넘어갑니다.");
+            count = 30; // 카운트 재설정
+            setOverlayImage(R.drawable.cat_stretch_pose); // 예시 이미지 변경
+        }
     }
+
+
 
     // 텍스트를 설정하는 메서드
     public void setOverlayText(String text) {
@@ -88,7 +80,7 @@ public class OverlayView extends View {
         super.onDraw(canvas);
         // 카메라 영상 위에 이미지를 그립니다.
         if (overlayDrawable != null) {
-            overlayDrawable.setBounds(0, 0, getWidth(), getHeight());
+            overlayDrawable.setBounds(0, 0, (int)(getWidth() * 0.9), (int)(getHeight()*0.9));
             overlayDrawable.draw(canvas);
         }
 
@@ -103,6 +95,7 @@ public class OverlayView extends View {
             canvas.drawText(overlayText, 60, 50, textPaint); // 텍스트 위치 설정
             canvas.drawText("카메라에 보이시는 동작을 따라하세요.", 30, 110, textPaint);
             canvas.drawText("정확한 동작을 하셔야 카운트가 줄어듭니다.", 30, 170, textPaint);
+            canvas.drawText("동작 이름 : " + "고개 돌리기", 30, 230, textPaint);
         }
     }
 }

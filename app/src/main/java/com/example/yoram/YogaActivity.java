@@ -9,9 +9,12 @@ import android.graphics.YuvImage;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
@@ -33,15 +36,14 @@ import java.nio.channels.FileChannel;
 import java.util.concurrent.ExecutionException;
 
 public class YogaActivity extends AppCompatActivity {
-
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private PreviewView viewFinder;
     private ProcessCameraProvider cameraProvider;
     private OverlayView overlayView;
     private Interpreter tflite;
     private long lastAnalyzedTimestamp = 0;
-    private int count = 20; // 초기 카운트 값
-    private String targetPoseName = "left"; // 목표 요가 자세 이름
+    private String targetPoseName = "warrior"; // 목표 요가 자세 이름
+    String[] yoga_array = {"활", "전사자세", "코브라자세", "고양이자세", "다리당기기"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,9 @@ public class YogaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yoga);
         viewFinder = findViewById(R.id.viewFinder);
         overlayView = findViewById(R.id.overlayView);
-        overlayView.setOverlayText("Count : " + count);
 
         try {
-            tflite = new Interpreter(loadModelFile("dongjumodel.tflite"));
+            tflite = new Interpreter(loadModelFile("model_unquant.tflite"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,59 +87,57 @@ public class YogaActivity extends AppCompatActivity {
 
     private void bindPreview() {
         Preview preview = new Preview.Builder().build();
-        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build();
+        CameraSelector cameraSelector = new CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_FRONT).build();
+        preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
 
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
+        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build();
 
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), image -> {
-            long currentTime = System.currentTimeMillis();
-            // 마지막 분석 시간으로부터 1초가 지났는지 확인
-            if (currentTime - lastAnalyzedTimestamp >= 1000) { // 1000ms = 1초
+            if (System.currentTimeMillis() - lastAnalyzedTimestamp >= 1000) {
                 byte[] imageData = convertImageToByteArray(image);
                 String poseName = runInference(imageData);
 
                 if (poseName.equals(targetPoseName)) {
-                    runOnUiThread(() -> {
-                        count--;
-                    });
+                    overlayView.updateTextPeriodically();
                 }
-
-                lastAnalyzedTimestamp = currentTime; // 현재 시간을 마지막 분석 시간으로 업데이트
+                lastAnalyzedTimestamp = System.currentTimeMillis();
             }
-
             image.close();
         });
 
         cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageAnalysis);
-        preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
     }
 
-    private float[][] convertByteArrayToFloatArray(byte[] imageData) {
-        // 이미지 크기 및 채널 수에 따라 배열 크기를 조정합니다.
-        // 예: 224x224 크기의 컬러 이미지를 입력으로 사용하는 경우
-        int IMAGE_SIZE = 224;
-        int NUM_CHANNELS = 3;
-        float[][] floatArray = new float[1][IMAGE_SIZE * IMAGE_SIZE * NUM_CHANNELS];
 
-        for (int i = 0; i < imageData.length; i++) {
-            // 바이트 값을 0에서 255 범위에서 0.0에서 1.0 범위로 변환합니다.
-            int pixel = imageData[i] & 0xff;
-            floatArray[0][i * NUM_CHANNELS + 0] = pixel / 255.0f; // R 채널
-            floatArray[0][i * NUM_CHANNELS + 1] = pixel / 255.0f; // G 채널
-            floatArray[0][i * NUM_CHANNELS + 2] = pixel / 255.0f; // B 채널
+    private float[][][][] convertByteArrayToFloatArray(byte[] imageData, int height, int width, int channels) {
+        float[][][][] floatArray = new float[1][height][width][channels];
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int pixelIndex = (i * width + j) * channels;
+                for (int k = 0; k < channels; k++) {
+                    float pixelValue = (imageData[pixelIndex + k] & 0xff) / 255.0f;
+                    floatArray[0][i][j][k] = pixelValue;
+                }
+            }
         }
 
         return floatArray;
     }
 
+
     private String runInference(byte[] imageData) {
-        float[][] inputData = convertByteArrayToFloatArray(imageData);
-        float[][] outputData = new float[10][2]; // 모델의 출력 형식에 맞게 수정 필요
+        float[][][][] inputData = convertByteArrayToFloatArray(imageData, 224, 224, 3);
+        float[][] outputData = new float[1][6];// 모델의 출력 형식에 맞게 수정 필요
         tflite.run(inputData, outputData);
         return interpretOutput(outputData); // 모델의 출력을 해석하는 함수 필요
     }
 
     private byte[] convertImageToByteArray(ImageProxy image) {
+        // YUV 데이터를 가져오기 위한 준비
         ImageProxy.PlaneProxy[] planes = image.getPlanes();
         ByteBuffer yBuffer = planes[0].getBuffer();
         ByteBuffer uBuffer = planes[1].getBuffer();
@@ -148,29 +147,69 @@ public class YogaActivity extends AppCompatActivity {
         int uSize = uBuffer.remaining();
         int vSize = vBuffer.remaining();
 
+        // YUV -> NV21 포맷으로 변환
         byte[] nv21 = new byte[ySize + uSize + vSize];
-
-        // Y, U, and V 버퍼를 하나의 배열(nv21)로 병합
         yBuffer.get(nv21, 0, ySize);
         vBuffer.get(nv21, ySize, vSize);
         uBuffer.get(nv21, ySize + vSize, uSize);
 
-        // YUV -> Bitmap 변환
+        // NV21 -> Bitmap 변환
         YuvImage yuvImage = new YuvImage(nv21, ImageFormat.NV21, image.getWidth(), image.getHeight(), null);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         yuvImage.compressToJpeg(new Rect(0, 0, image.getWidth(), image.getHeight()), 100, out);
         byte[] imageBytes = out.toByteArray();
 
-        // Bitmap -> RGB 바이트 배열
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
+        // Bitmap 객체 생성
+        Bitmap originalBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+        // Bitmap 크기 조정 (224x224)
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 224, 224, true);
+
+        // Bitmap -> RGB 바이트 배열 변환
+        int bytes = resizedBitmap.getByteCount();
+        ByteBuffer buffer = ByteBuffer.allocate(bytes);
+        resizedBitmap.copyPixelsToBuffer(buffer);
+        byte[] tempArray = buffer.array();
+
+        return tempArray;
     }
+
 
     private String interpretOutput(float[][] outputData) {
         // TODO: 모델의 출력 데이터를 해석하여 자세 이름을 반환하는 로직 구현
-        return outputData[0][0] > outputData[0][1] ? "left" : "right";
+        String result = "stand";
+        int max_index = 0;
+        float max_val = 0;
+        Log.i("ARR", Arrays.toString(outputData[0]));
+
+        for (int i = 0; i < 6; i++) {
+            if (max_val < outputData[0][i]) {
+                max_val = outputData[0][i];
+                max_index = i;
+            }
+        }
+        //번호마다 요가 이름 부여
+        if (max_index == 0) {
+        } else if (max_index == 1) {
+            result = "bow";
+        } else if (max_index == 2) {
+            result = "warrior";
+        } else if (max_index == 3) {
+            result = "cobra";
+        } else if (max_index == 4) {
+            result = "cat_pose";
+        } else if (max_index == 5) {
+            result = "for_back";
+        }
+//        Log.i("arr", Arrays.toString(confidences));
+
+        // 정확한 동작을 할수있게 확률이 85퍼센트 이상이면 실행할수있게 만든다.
+        if (max_val < 0.4) {
+            result = "stand";
+        }
+        Log.i("yoga", result);
+
+        return result;
     }
 
     @Override
