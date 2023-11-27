@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,7 +26,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.example.yoram.ml.ModelUnquant;
+import com.google.android.gms.tflite.acceleration.Model;
+
+import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -98,7 +104,7 @@ public class YogaActivity extends AppCompatActivity {
 
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), image -> {
             if (System.currentTimeMillis() - lastAnalyzedTimestamp >= 1000) {
-                byte[] imageData = convertImageToByteArray(image);
+                Bitmap imageData = convertImageToByteArray(image);
                 String poseName = runInference(imageData);
 
                 if (poseName.equals(targetPoseName)) {
@@ -130,14 +136,52 @@ public class YogaActivity extends AppCompatActivity {
     }
 
 
-    private String runInference(byte[] imageData) {
-        float[][][][] inputData = convertByteArrayToFloatArray(imageData, 224, 224, 3);
-        float[][] outputData = new float[1][6];// 모델의 출력 형식에 맞게 수정 필요
-        tflite.run(inputData, outputData);
-        return interpretOutput(outputData); // 모델의 출력을 해석하는 함수 필요
+    private String runInference(Bitmap imageData) {
+        int imageSize = 224;
+        try {
+            ModelUnquant model = ModelUnquant.newInstance(getApplicationContext());
+
+            // Creates inputs for reference.
+            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(4 * imageSize * imageSize * 3);
+            byteBuffer.order(ByteOrder.nativeOrder());
+
+            int[] intValues = new int[imageSize * imageSize];
+            imageData.getPixels(intValues, 0, imageData.getWidth(), 0, 0, imageData.getWidth(), imageData.getHeight());
+
+            // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
+            int pixel = 0;
+            for (int i = 0; i < 224; i++) {
+                for (int j = 0; j < 224; j++) {
+                    int val = intValues[pixel++]; // RGB
+                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+                }
+            }
+
+            inputFeature0.loadBuffer(byteBuffer);
+
+            // Runs model inference and gets result.
+            ModelUnquant.Outputs outputs = model.process(inputFeature0);
+            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+            float[] confidences = outputFeature0.getFloatArray();
+            String result = interpretOutput(confidences);
+            return result;
+            // find the index of the class with the biggest confidence.
+            // Releases model resources if no longer used.
+        } catch (IOException e) {
+            // TODO Handle the exception
+        }
+//        float[][][][] inputData = convertByteArrayToFloatArray(imageData, 224, 224, 3);
+//        float[][] outputData = new float[1][6];// 모델의 출력 형식에 맞게 수정 필요
+//        tflite.run(inputData, outputData);
+//        return interpretOutput(outputData); // 모델의 출력을 해석하는 함수 필요
+        return "stand";
     }
 
-    private byte[] convertImageToByteArray(ImageProxy image) {
+    private Bitmap convertImageToByteArray(ImageProxy image) {
         // YUV 데이터를 가져오기 위한 준비
         ImageProxy.PlaneProxy[] planes = image.getPlanes();
         ByteBuffer yBuffer = planes[0].getBuffer();
@@ -167,25 +211,25 @@ public class YogaActivity extends AppCompatActivity {
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 224, 224, true);
 
         // Bitmap -> RGB 바이트 배열 변환
-        int bytes = resizedBitmap.getByteCount();
-        ByteBuffer buffer = ByteBuffer.allocate(bytes);
-        resizedBitmap.copyPixelsToBuffer(buffer);
-        byte[] tempArray = buffer.array();
+//        int bytes = resizedBitmap.getByteCount();
+//        ByteBuffer buffer = ByteBuffer.allocate(bytes);
+//        resizedBitmap.copyPixelsToBuffer(buffer);
+//        byte[] tempArray = buffer.array();
 
-        return tempArray;
+        return resizedBitmap;
     }
 
 
-    private String interpretOutput(float[][] outputData) {
+    private String interpretOutput(float[] outputData) {
         // TODO: 모델의 출력 데이터를 해석하여 자세 이름을 반환하는 로직 구현
         String result = "stand";
         int max_index = 0;
         float max_val = 0;
-        Log.i("ARR", Arrays.toString(outputData[0]));
+        Log.i("ARR", Arrays.toString(outputData));
 
         for (int i = 0; i < 6; i++) {
-            if (max_val < outputData[0][i]) {
-                max_val = outputData[0][i];
+            if (max_val < outputData[i]) {
+                max_val = outputData[i];
                 max_index = i;
             }
         }
@@ -205,7 +249,7 @@ public class YogaActivity extends AppCompatActivity {
 //        Log.i("arr", Arrays.toString(confidences));
 
         // 정확한 동작을 할수있게 확률이 85퍼센트 이상이면 실행할수있게 만든다.
-        if (max_val < 0.4) {
+        if (max_val < 0.8) {
             result = "stand";
         }
         Log.i("yoga", result);
