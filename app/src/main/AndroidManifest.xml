@@ -32,6 +32,9 @@
         android:theme="@style/Theme.Yoram"
         tools:targetApi="33">
         <activity
+            android:name=".YogaSellectActivity"
+            android:exported="false" />
+        <activity
             android:name=".YogaEndActivity"
             android:exported="false" />
 

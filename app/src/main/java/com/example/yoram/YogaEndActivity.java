@@ -22,20 +22,21 @@ public class YogaEndActivity extends AppCompatActivity {
         int c_day = pref.getInt("continuous_day", 0);
         String recent_yoga_day = pref.getString("recent_yoga_day", "");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        LocalDate recent_date = LocalDate.parse(recent_yoga_day, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Corrected date format
+        LocalDate recent_date;
+        if (!recent_yoga_day.equals("")) {
+            recent_date = LocalDate.parse(recent_yoga_day, formatter);
+        } else {
+            // Handle the case when recent_yoga_day is empty
+            // Example: Initialize recent_date to a default value or current date
+            recent_date = LocalDate.now();
+        }
         LocalDate current_date = LocalDate.now();
 
-        if(recent_yoga_day==""){
-            editor.putInt("continuous_day", c_day + 1);
-            editor.putString("recent_yoga_day", current_date.format(formatter));
-            return;
-        }
-
         long daysBetween = ChronoUnit.DAYS.between(recent_date, current_date);
-        if(daysBetween == 1){
+        if (daysBetween == 1) {
             editor.putInt("continuous_day", c_day + 1);
-        }else{
+        } else {
             editor.putInt("continuous_day", 0);
         }
 

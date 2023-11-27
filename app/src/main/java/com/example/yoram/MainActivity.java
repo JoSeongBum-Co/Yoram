@@ -49,30 +49,33 @@ public class MainActivity extends AppCompatActivity {
         mypageFragment = new MypageFragment();
         settingFragment = new SettingFragment();
 
+        CustomBottomNavigationView1 bottomNavigationView = findViewById(R.id.customBottomBar);
+        bottomNavigationView.inflateMenu(R.menu.bottom_menu2);
         // 바텀 네비게이션 뷰 초기화
-        bottomNavigationView = findViewById(R.id.bottom_navigationbar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, homeFragment).commitAllowingStateLoss();
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_layout2, homeFragment).commitAllowingStateLoss();
+        bottomNavigationView.setSelectedItemId(R.id.newmhome);
+
 
         //화면 이동
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.info) {
+                if (id == R.id.newmypage) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_layout, mypageFragment).commitAllowingStateLoss();
+                            .replace(R.id.main_layout2, mypageFragment).commitAllowingStateLoss();
                     return true;
-                } else if (id == R.id.home) {
-                    System.out.println("2");
+                } else if (id == R.id.newmhome) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_layout, homeFragment).commitAllowingStateLoss();
+                            .replace(R.id.main_layout2, homeFragment).commitAllowingStateLoss();
                     return true;
-                } else if (id == R.id.setting) {
-                    System.out.println("3");
+                } else if (id == R.id.newsetting) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_layout, settingFragment).commitAllowingStateLoss();
+                            .replace(R.id.main_layout2, settingFragment).commitAllowingStateLoss();
                     return true;
+                } else if(id == R.id.newmhome){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_layout2, settingFragment).commitAllowingStateLoss();
                 }
                 return false;
             }

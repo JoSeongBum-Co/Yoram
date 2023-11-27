@@ -12,19 +12,16 @@
     android:layout_height="match_parent"
     tools:context=".YoramMypage"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/yoram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:layout_marginTop="79dp"
-        android:text="@string/mypage_title"
-        android:textAppearance="@style/yoram"
-        android:textColor="@color/black"
-        android:lineSpacingExtra="-6sp"
-        android:layout_gravity="center"
-        />
-    <LinearLayout
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40sp"
+
+            android:src="@drawable/mypage_image" />
+
+        <LinearLayout
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,11 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/continuous_day"
-            android:text="12"
             android:layout_marginRight="5dp"
             android:textSize="35dp"
             android:textAppearance="@style/explain_text"
-            android:textColor="#FF46C5"/>
+            android:textColor="#5182FF"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,11 +44,11 @@
     </LinearLayout>
 
     <CalendarView
-
         android:layout_marginTop="70dp"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dateTextAppearance="@style/explain_text"
         />
 
 

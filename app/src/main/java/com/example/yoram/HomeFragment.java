@@ -65,8 +65,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                /*Intent intent = new Intent(getActivity(), AlarmStartActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(getActivity(), YogaSellectActivity.class);
+                startActivity(intent);
 
 
             }
@@ -168,39 +168,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void setAlarm() {
+        int hour = timePicker.getCurrentHour();
+        int minute = timePicker.getCurrentMinute();
+
         Calendar calendar = Calendar.getInstance();
-        // 데이터 가져와서 알람 설정
-        SharedPreferences pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        boolean isAnyDayActive = false;
-
-        for (Map.Entry<String, Button> entry : dayButtons.entrySet()) {
-            String day = entry.getKey();
-            Button dayButton = entry.getValue();
-
-            int active = pref.getInt(day + "_active", 0);
-            int hour = pref.getInt(day + "_hour", 0);
-            int minute = pref.getInt(day + "_minute", 0);
-            if (active == 1) {
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
-                Log.d("AlarmDebug", "알람 설정 시간: " + hour + ":" + minute);
-                AlarmManager alarmManager = null;
-                if (getActivity() != null) {
-                    alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                }
-
-                Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-
-                if (alarmManager != null) {
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                    Log.d("AlarmDebug", "알람 설정 완료");
-//                    Toast.makeText(getActivity(), "Alarm set at " + hour + ":" + minute, Toast.LENGTH_SHORT).show();
-                }
-            }
-
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        Log.d("AlarmDebug", "알람 설정 시간: " + hour + ":" + minute);
+        AlarmManager alarmManager = null;
+        if (getActivity() != null) {
+            alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         }
 
+        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
+
+        if (alarmManager != null) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Log.d("AlarmDebug", "알람 설정 완료");
+            Toast.makeText(getActivity(), "Alarm set at " + hour + ":" + minute, Toast.LENGTH_SHORT).show();
+        }
     }
 }
