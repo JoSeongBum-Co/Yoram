@@ -1,5 +1,6 @@
 package com.example.yoram;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -45,9 +46,9 @@ public class YogaActivity extends AppCompatActivity {
     private OverlayView overlayView;
     private long lastAnalyzedTimestamp = 0;
     private int imageSize = 224;
-    private String targetPoseName = "warrior"; // 목표 요가 자세 이름
-    String[] yoga_array = {"활", "전사자세", "코브라자세", "고양이자세", "다리당기기"};
+    private String targetPoseName = "stand"; // 목표 요가 자세 이름
 
+    int current_yoga_id = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +142,7 @@ public class YogaActivity extends AppCompatActivity {
 
             float[] confidences = outputFeature0.getFloatArray();
             String result = interpretOutput(confidences);
+            checkAndCompleteYoga();
             return result;
             // find the index of the class with the biggest confidence.
             // Releases model resources if no longer used.
@@ -180,7 +182,17 @@ public class YogaActivity extends AppCompatActivity {
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 224, 224, true);
         return resizedBitmap;
     }
+    private void checkAndCompleteYoga() {
+        // 모든 요가 동작이 완료되었는지 확인
+        if(overlayView.yoga_count >= overlayView.yoga_id_array.length){
+            Intent intent = new Intent(YogaActivity.this, YogaEndActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
+        // 모든 요가 동작이 완료되었다면 요가 끝 페이지로 이동
+; // 현재 액티비티 종료
+    }
 
     private String interpretOutput(float[] outputData) {
         // TODO: 모델의 출력 데이터를 해석하여 자세 이름을 반환하는 로직 구현

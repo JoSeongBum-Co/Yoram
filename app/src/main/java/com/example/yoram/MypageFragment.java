@@ -1,5 +1,7 @@
 package com.example.yoram;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +56,8 @@ public class MypageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TextView continuous_day;
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -65,6 +72,11 @@ public class MypageFragment extends Fragment {
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        TextView continuous_day;
         super.onViewCreated(view, savedInstanceState);
+        continuous_day = (TextView) getActivity().findViewById(R.id.continuous_day);
+        SharedPreferences pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        int c_day = pref.getInt("continuous_day", 0);
+        continuous_day.setText(String.valueOf(c_day));
     }
 }

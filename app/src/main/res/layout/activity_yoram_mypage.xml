@@ -33,7 +33,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12일"
+            android:id="@+id/continuous_day"
+            android:text="12"
             android:layout_marginRight="5dp"
             android:textSize="35dp"
             android:textAppearance="@style/explain_text"
@@ -41,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="연속으로 요가를 수행 했어요!"
+            android:text="일 연속으로 요가를 수행 했어요!"
             android:textSize="20dp"
             android:textAppearance="@style/explain_text"/>
     </LinearLayout>

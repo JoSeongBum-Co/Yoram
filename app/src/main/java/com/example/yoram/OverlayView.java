@@ -19,8 +19,10 @@ public class OverlayView extends View {
     private String overlayText;
     private Paint textPaint;
     private Handler handler;
-    public static int count = 30;
-    String pose_name = "left";
+    public static int count = 15;
+    public String[] yoga_array = {"전사자세", "다리당기기", "코브라자세"};
+    public int[] yoga_id_array = {R.drawable.warrior, R.drawable.for_back_pose, R.drawable.cobra_pose};
+    public int yoga_count = 0;
 
     public OverlayView(Context context) {
         super(context);
@@ -39,7 +41,6 @@ public class OverlayView extends View {
 
     private void init() {
         // 기본 이미지 리소스 ID와 텍스트를 초기화
-        setOverlayImage(R.drawable.overlay_image);
         updateTextPeriodically();
         invalidate();
     }
@@ -58,15 +59,19 @@ public class OverlayView extends View {
     // 클래스 멤버 변수로 Handler 선언
 
     public void updateTextPeriodically() {
+        if (yoga_count == yoga_id_array.length) {
+            yoga_count = 0;
+        }
+
+        setOverlayImage(yoga_id_array[yoga_count]);
         if (count > 0) {
-            setOverlayText("남은 시간 : " + --count);
+            setOverlayText("남은 시간 : " + count--);
         } else {
             setOverlayText("다음 동작으로 넘어갑니다.");
-            count = 30; // 카운트 재설정
-            setOverlayImage(R.drawable.cat_stretch_pose); // 예시 이미지 변경
+            count = 15; // 카운트 재설정
+            yoga_count++;
         }
     }
-
 
 
     // 텍스트를 설정하는 메서드
@@ -80,9 +85,17 @@ public class OverlayView extends View {
         super.onDraw(canvas);
         // 카메라 영상 위에 이미지를 그립니다.
         if (overlayDrawable != null) {
-            overlayDrawable.setBounds(0, 0, (int)(getWidth() * 0.9), (int)(getHeight()*0.9));
+            int imageWidth = (int) (getWidth() * 0.8);
+            int imageHeight = (int) (getHeight() * 0.8);
+
+            // 이미지를 가운데에 위치시키기 위한 x, y 시작 좌표를 계산
+            int x = (getWidth() - imageWidth) / 2;
+            int y = (getHeight() - imageHeight) / 2;
+
+            overlayDrawable.setBounds(x, y, x + imageWidth, y + imageHeight);
             overlayDrawable.draw(canvas);
         }
+
 
         // 텍스트를 그립니다.
         if (overlayText != null) {
@@ -91,11 +104,12 @@ public class OverlayView extends View {
                 textPaint.setColor(Color.BLACK);
                 textPaint.setTextSize(50); // 텍스트 크기 설정
             }
-
-            canvas.drawText(overlayText, 60, 50, textPaint); // 텍스트 위치 설정
-            canvas.drawText("카메라에 보이시는 동작을 따라하세요.", 30, 110, textPaint);
-            canvas.drawText("정확한 동작을 하셔야 카운트가 줄어듭니다.", 30, 170, textPaint);
-            canvas.drawText("동작 이름 : " + "고개 돌리기", 30, 230, textPaint);
+            if (yoga_count < yoga_array.length) {
+                canvas.drawText(overlayText, 60, 50, textPaint); // 텍스트 위치 설정
+                canvas.drawText("카메라에 보이시는 동작을 따라하세요.", 30, 110, textPaint);
+                canvas.drawText("정확한 동작을 하셔야 카운트가 줄어듭니다.", 30, 170, textPaint);
+                canvas.drawText("동작 이름 : " + yoga_array[yoga_count], 30, 230, textPaint);
+            }
         }
     }
 }

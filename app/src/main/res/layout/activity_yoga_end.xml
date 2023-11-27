@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="@string/alram_call_text1"
+        android:text="고생하셨습니다."
         android:textAppearance="@style/explain_text" />
 
     <TextView
@@ -39,11 +39,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="@string/alram_call_text2"
+        android:text="아침 요가를 완료하였습니다."
         android:textAppearance="@style/explain_text" />
 
     <Button
-        android:id="@+id/start_yoga"
+        android:id="@+id/off_yoga"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -51,6 +51,6 @@
         android:width="150dp"
         android:height="70dp"
         android:backgroundTint="@color/black"
-        android:text="요가 시작"
+        android:text="종료하기"
         android:textAppearance="@style/button_text" />
 </LinearLayout>

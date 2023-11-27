@@ -4,12 +4,13 @@
     <!-- 카메라 권한 추가 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.front" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BIND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,8 +31,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yoram"
         tools:targetApi="33">
-        <receiver android:name=".AlarmReceiver"/>
+        <activity
+            android:name=".YogaEndActivity"
+            android:exported="false" />
+
+        <receiver android:name=".AlarmReceiver" />
+
         <service android:name=".AlarmService" />
+
         <activity
             android:name=".animated_buttom_bar"
             android:exported="false" />
