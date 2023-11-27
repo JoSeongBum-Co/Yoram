@@ -1,18 +1,26 @@
 package com.example.yoram;
 
+
+import android.app.AlarmManager;
 import android.app.Activity;
+
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +32,7 @@ public class HomeFragment extends Fragment {
     int[] buttonIds = {R.id.Mon, R.id.Tue, R.id.Wed, R.id.Thu, R.id.Fri, R.id.Sat, R.id.Sun};
     Map<String, Button> dayButtons = new HashMap<>();
     String currentActiveDay = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,18 +53,21 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < days.length; i++) {
             Button dayButton = view.findViewById(buttonIds[i]);
             dayButtons.put(days[i], dayButton);
+
         }
     }
 
 
     // 요가 선택 버튼 눌렀을 때
     private void setSetYogaButtonListener() {
+
         button_Set_yoga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AlarmStartActivity.class);
-                startActivity(intent);
-//                startActivity(intent);
+
+                /*Intent intent = new Intent(getActivity(), AlarmStartActivity.class);
+                startActivity(intent);*/
+
 
             }
         });
@@ -124,11 +136,11 @@ public class HomeFragment extends Fragment {
     private void setAlarmTime(String day, int active, int hour, int minute) {
         SharedPreferences pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-
         editor.putInt(day + "_active", active);
         editor.putInt(day + "_hour", hour);
         editor.putInt(day + "_minute", minute);
         editor.apply();
+        setAlarm();
     }
 
     private void restoreState() {
@@ -153,5 +165,42 @@ public class HomeFragment extends Fragment {
         }
 
         timePicker.setEnabled(isAnyDayActive);
+    }
+
+    private void setAlarm() {
+        Calendar calendar = Calendar.getInstance();
+        // 데이터 가져와서 알람 설정
+        SharedPreferences pref = getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        boolean isAnyDayActive = false;
+
+        for (Map.Entry<String, Button> entry : dayButtons.entrySet()) {
+            String day = entry.getKey();
+            Button dayButton = entry.getValue();
+
+            int active = pref.getInt(day + "_active", 0);
+            int hour = pref.getInt(day + "_hour", 0);
+            int minute = pref.getInt(day + "_minute", 0);
+            if (active == 1) {
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                Log.d("AlarmDebug", "알람 설정 시간: " + hour + ":" + minute);
+                AlarmManager alarmManager = null;
+                if (getActivity() != null) {
+                    alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                }
+
+                Intent intent = new Intent(getActivity(), AlarmReceiver.class);
+
+                if (alarmManager != null) {
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    Log.d("AlarmDebug", "알람 설정 완료");
+//                    Toast.makeText(getActivity(), "Alarm set at " + hour + ":" + minute, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+
     }
 }

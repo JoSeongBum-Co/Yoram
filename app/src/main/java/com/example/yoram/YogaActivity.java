@@ -52,6 +52,7 @@ public class YogaActivity extends AppCompatActivity {
         viewFinder = findViewById(R.id.viewFinder);
         overlayView = findViewById(R.id.overlayView);
 
+
         try {
             tflite = new Interpreter(loadModelFile("model_unquant.tflite"));
         } catch (IOException e) {
