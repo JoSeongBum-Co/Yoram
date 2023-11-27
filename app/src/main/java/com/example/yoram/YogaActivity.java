@@ -9,7 +9,6 @@ import android.graphics.YuvImage;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.yoram.ml.ModelUnquant;
-import com.google.android.gms.tflite.acceleration.Model;
 
 import org.tensorflow.lite.DataType;
-import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.ByteArrayOutputStream;
@@ -46,8 +43,8 @@ public class YogaActivity extends AppCompatActivity {
     private PreviewView viewFinder;
     private ProcessCameraProvider cameraProvider;
     private OverlayView overlayView;
-    private Interpreter tflite;
     private long lastAnalyzedTimestamp = 0;
+    private int imageSize = 224;
     private String targetPoseName = "warrior"; // 목표 요가 자세 이름
     String[] yoga_array = {"활", "전사자세", "코브라자세", "고양이자세", "다리당기기"};
 
@@ -57,13 +54,6 @@ public class YogaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yoga);
         viewFinder = findViewById(R.id.viewFinder);
         overlayView = findViewById(R.id.overlayView);
-
-
-        try {
-            tflite = new Interpreter(loadModelFile("model_unquant.tflite"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             startCamera();
@@ -119,25 +109,8 @@ public class YogaActivity extends AppCompatActivity {
     }
 
 
-    private float[][][][] convertByteArrayToFloatArray(byte[] imageData, int height, int width, int channels) {
-        float[][][][] floatArray = new float[1][height][width][channels];
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                int pixelIndex = (i * width + j) * channels;
-                for (int k = 0; k < channels; k++) {
-                    float pixelValue = (imageData[pixelIndex + k] & 0xff) / 255.0f;
-                    floatArray[0][i][j][k] = pixelValue;
-                }
-            }
-        }
-
-        return floatArray;
-    }
-
-
     private String runInference(Bitmap imageData) {
-        int imageSize = 224;
+
         try {
             ModelUnquant model = ModelUnquant.newInstance(getApplicationContext());
 
@@ -173,12 +146,8 @@ public class YogaActivity extends AppCompatActivity {
             // Releases model resources if no longer used.
         } catch (IOException e) {
             // TODO Handle the exception
+            return "stand";
         }
-//        float[][][][] inputData = convertByteArrayToFloatArray(imageData, 224, 224, 3);
-//        float[][] outputData = new float[1][6];// 모델의 출력 형식에 맞게 수정 필요
-//        tflite.run(inputData, outputData);
-//        return interpretOutput(outputData); // 모델의 출력을 해석하는 함수 필요
-        return "stand";
     }
 
     private Bitmap convertImageToByteArray(ImageProxy image) {
@@ -209,13 +178,6 @@ public class YogaActivity extends AppCompatActivity {
 
         // Bitmap 크기 조정 (224x224)
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 224, 224, true);
-
-        // Bitmap -> RGB 바이트 배열 변환
-//        int bytes = resizedBitmap.getByteCount();
-//        ByteBuffer buffer = ByteBuffer.allocate(bytes);
-//        resizedBitmap.copyPixelsToBuffer(buffer);
-//        byte[] tempArray = buffer.array();
-
         return resizedBitmap;
     }
 
@@ -246,7 +208,6 @@ public class YogaActivity extends AppCompatActivity {
         } else if (max_index == 5) {
             result = "for_back";
         }
-//        Log.i("arr", Arrays.toString(confidences));
 
         // 정확한 동작을 할수있게 확률이 85퍼센트 이상이면 실행할수있게 만든다.
         if (max_val < 0.8) {
@@ -260,10 +221,6 @@ public class YogaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (tflite != null) {
-            tflite.close();
-            tflite = null;
-        }
         if (cameraProvider != null) {
             cameraProvider.unbindAll();
         }
